@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Cool Blues and Neutrals -->
     <!-- Application Structure Plan: The SPA is designed as a top-to-bottom narrative scroll, guiding the user logically through the problem statement. It starts with a high-level summary (Hero), defines the core issue (The Challenge), presents the proposed architecture visually (The Solution), breaks down key deliverables (Core Features & Tech Stack), shows a sample visualization (Dashboard Preview), and outlines success criteria and resources. This thematic, single-page flow was chosen over a direct FAQ copy because it transforms a static Q&A into an engaging and intuitive project brief, making it easier for hackathon participants to quickly grasp the project's essence, goals, and technical requirements. -->
-    <!-- Visualization & Content Choices: 
+    <!-- Visualization & Content Choices:
         - Report Info: System Architecture -> Goal: Organize -> Viz/Presentation Method: HTML/CSS Diagram -> Interaction: None -> Justification: Visually simplifies the complex RAG pipeline into a clear, step-by-step flow, enhancing comprehension far better than text alone. (Library/Method: Tailwind CSS Flexbox).
         - Report Info: Expected Visualizations -> Goal: Demonstrate -> Viz/Presentation Method: Line Charts -> Interaction: Hover tooltips -> Justification: Sample charts provide concrete examples of the expected data visualization output, making the requirement tangible for participants by showing both temperature and salinity profiles. (Library/Method: Chart.js with Canvas).
         - Report Info: Lists of features/tech -> Goal: Inform -> Viz/Presentation Method: Card-based Grid -> Interaction: Hover effects -> Justification: Organizes key requirements into scannable, visually distinct blocks for quick reference. (Library/Method: Tailwind CSS Grid).
@@ -43,6 +43,7 @@
                 <a href="#solution" class="text-gray-600 hover:text-blue-600">Solution</a>
                 <a href="#features" class="text-gray-600 hover:text-blue-600">Features</a>
                 <a href="#dashboard" class="text-gray-600 hover:text-blue-600">Dashboard Preview</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600">Contact</a>
             </div>
         </nav>
     </header>
@@ -80,7 +81,7 @@
                         <h3 class="text-2xl font-semibold mb-4">The Data Hurdle</h3>
                         <p class="text-gray-600 leading-relaxed">Oceanographic data is vast, complex, and heterogeneous. The ARGO program alone generates extensive datasets in NetCDF format, containing crucial variables like temperature and salinity. Accessing, querying, and visualizing this data currently requires significant domain knowledge, technical skill, and familiarity with specialized tools, creating a major bottleneck for researchers, policymakers, and students.</p>
                     </div>
-                     <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                   <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
                         <h3 class="text-2xl font-semibold mb-4">The Goal: Democratization</h3>
                         <p class="text-gray-600 leading-relaxed">The objective is to build an AI-powered conversational system that allows any user to explore and visualize ARGO float data using simple, natural language. This tool will bridge the gap between raw data and actionable insights, empowering a wider audience to ask questions like, "Show me salinity profiles near the equator," without needing to write a single line of code.</p>
                     </div>
@@ -100,19 +101,19 @@
                         <h4 class="font-semibold text-lg">1. Ingest & Process</h4>
                         <p class="text-sm text-gray-500">ARGO NetCDF files are converted into structured formats like SQL/Parquet.</p>
                     </div>
-                     <div class="text-2xl text-blue-400 hidden md:block">➔</div>
+                    <div class="text-2xl text-blue-400 hidden md:block">➔</div>
                     <div class="p-6 bg-white rounded-lg shadow-lg text-center w-full md:w-1/5 border-t-4 border-blue-500">
                         <div class="text-4xl mb-2">💾</div>
                         <h4 class="font-semibold text-lg">2. Store & Index</h4>
                         <p class="text-sm text-gray-500">Data stored in PostgreSQL; metadata indexed in a Vector DB (FAISS/Chroma).</p>
                     </div>
-                     <div class="text-2xl text-blue-400 hidden md:block">➔</div>
+                    <div class="text-2xl text-blue-400 hidden md:block">➔</div>
                     <div class="p-6 bg-white rounded-lg shadow-lg text-center w-full md:w-1/5 border-t-4 border-blue-500">
                         <div class="text-4xl mb-2">🧠</div>
                         <h4 class="font-semibold text-lg">3. Query with AI</h4>
                         <p class="text-sm text-gray-500">RAG and LLMs translate natural language into database queries.</p>
                     </div>
-                     <div class="text-2xl text-blue-400 hidden md:block">➔</div>
+                    <div class="text-2xl text-blue-400 hidden md:block">➔</div>
                     <div class="p-6 bg-white rounded-lg shadow-lg text-center w-full md:w-1/5 border-t-4 border-blue-500">
                         <div class="text-4xl mb-2">📈</div>
                         <h4 class="font-semibold text-lg">4. Visualize</h4>
@@ -145,11 +146,11 @@
                         <h4 class="font-semibold text-xl mb-2">RAG Pipeline</h4>
                         <p class="text-gray-600">LLMs (e.g., GPT, LLaMA) augmented with a vector database to ensure accurate, grounded responses.</p>
                     </div>
-                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border">
+                   <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border">
                         <h4 class="font-semibold text-xl mb-2">Structured Storage</h4>
                         <p class="text-gray-600">Use of PostgreSQL for relational data and FAISS/Chroma for vectorized metadata retrieval.</p>
                     </div>
-                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border">
+                   <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border">
                         <h4 class="font-semibold text-xl mb-2">Data Export</h4>
                         <p class="text-gray-600">Ability to export query results and summaries to ASCII and NetCDF formats.</p>
                     </div>
@@ -158,7 +159,7 @@
         </section>
 
         <section id="dashboard" class="py-16 md:py-24 bg-gray-50">
-             <div class="container mx-auto px-6">
+            <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold">Dashboard Preview: Visualizing Ocean Data</h2>
                     <p class="mt-2 text-gray-600 max-w-2xl mx-auto">The core of the user experience is an interactive dashboard. Below are sample visualizations of the kind FloatChat should produce. Users could generate these charts by asking, "Show me the temperature and salinity profiles for float X."</p>
@@ -175,14 +176,14 @@
             </div>
         </section>
 
-         <section id="success" class="py-16 md:py-24">
+        <section id="success" class="py-16 md:py-24">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold">Success Factors & Resources</h2>
-                     <p class="mt-2 text-gray-600 max-w-2xl mx-auto">Success will be measured by functionality, accuracy, and user experience. Use the official data repositories to build your proof-of-concept.</p>
+                    <p class="mt-2 text-gray-600 max-w-2xl mx-auto">Success will be measured by functionality, accuracy, and user experience. Use the official data repositories to build your proof-of-concept.</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8">
-                     <div>
+                    <div>
                         <h3 class="text-xl font-semibold mb-4">Key Success Metrics</h3>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
                             <li><b>Functionality:</b> A seamless, working end-to-end pipeline.</li>
@@ -199,12 +200,27 @@
                                 <p class="font-semibold text-blue-800">Argo Global Data Repository</p>
                                 <p class="text-sm text-blue-600">ftp.ifremer.fr/ifremer/argo</p>
                             </a>
-                             <a href="https://www.coriolis.eu.org/Data-Products/Data-selection" target="_blank" class="block bg-blue-50 p-4 rounded-lg hover:bg-blue-100 transition-colors">
+                           <a href="https://www.coriolis.eu.org/Data-Products/Data-selection" target="_blank" class="block bg-blue-50 p-4 rounded-lg hover:bg-blue-100 transition-colors">
                                 <p class="font-semibold text-blue-800">ARGO Data Selection - Coriolis</p>
                                 <p class="text-sm text-blue-600">https://www.coriolis.eu.org/Data-Products/Data-selection</p>
                             </a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Contact Section -->
+        <section id="contact" class="py-16 md:py-24 bg-blue-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Contact Us</h2>
+                    <p class="mt-2 text-gray-600 max-w-2xl mx-auto">Feel free to reach out with any questions or comments.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200 max-w-2xl mx-auto">
+                    <p class="text-gray-800 mb-4"><b>Name:</b> Pavan KUmar Jonnakuti</p>
+                    <p class="text-gray-800 mb-4"><b>Email:</b> pavankumar.j@incois.gov.in</p>
+                    <p class="text-gray-800"><b>Institute:</b> Indian National Centre for Ocean Information Services (MoES-INCOIS)</p>
                 </div>
             </div>
         </section>
@@ -295,13 +311,6 @@
                                         return label;
                                     }
                                 }
-                            },
-                            title: {
-                                display: true,
-                                text: label,
-                                font: {
-                                    size: 18
-                                }
                             }
                         }
                     }
@@ -341,6 +350,7 @@
             const defaultTempData = [28.5, 28.2, 27.9, 25.1, 20.3, 15.6, 11.2, 8.4, 5.1, 3.2];
             const defaultSalinityData = [35.1, 35.2, 35.3, 35.4, 35.5, 35.6, 35.7, 35.8, 35.9, 36.0];
 
+            // Use the correct filename from the provided CSV data
             let data = await fetchCSVData('Book1.xlsx - Sheet1.csv');
 
             // If CSV data fails to load, use the default data
