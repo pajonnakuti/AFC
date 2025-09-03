@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloatChat - SIH 2025 Problem Statement</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Cool Blues and Neutrals -->
+    <!-- Application Structure Plan: The SPA is designed as a top-to-bottom narrative scroll, guiding the user logically through the problem statement. It starts with a high-level summary (Hero), defines the core issue (The Challenge), presents the proposed architecture visually (The Solution), breaks down key deliverables (Core Features & Tech Stack), shows a sample visualization (Dashboard Preview), and outlines success criteria and resources. This thematic, single-page flow was chosen over a direct FAQ copy because it transforms a static Q&A into an engaging and intuitive project brief, making it easier for hackathon participants to quickly grasp the project's essence, goals, and technical requirements. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: System Architecture -> Goal: Organize -> Viz/Presentation Method: HTML/CSS Diagram -> Interaction: None -> Justification: Visually simplifies the complex RAG pipeline into a clear, step-by-step flow, enhancing comprehension far better than text alone. (Library/Method: Tailwind CSS Flexbox).
+        - Report Info: Expected Visualizations -> Goal: Demonstrate -> Viz/Presentation Method: Line Charts -> Interaction: Hover tooltips -> Justification: Sample charts provide concrete examples of the expected data visualization output, making the requirement tangible for participants by showing both temperature and salinity profiles. (Library/Method: Chart.js with Canvas).
+        - Report Info: Lists of features/tech -> Goal: Inform -> Viz/Presentation Method: Card-based Grid -> Interaction: Hover effects -> Justification: Organizes key requirements into scannable, visually distinct blocks for quick reference. (Library/Method: Tailwind CSS Grid).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <h1 class="font-bold text-xl text-blue-600">FloatChat Challenge</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#challenge" class="text-gray-600 hover:text-blue-600">The Challenge</a>
+                <a href="#solution" class="text-gray-600 hover:text-blue-600">Solution</a>
+                <a href="#features" class="text-gray-600 hover:text-blue-600">Features</a>
+                <a href="#dashboard" class="text-gray-600 hover:text-blue-600">Dashboard Preview</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="bg-white">
+            <div class="container mx-auto px-6 py-20 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">FloatChat: An AI-Powered Conversational Interface for ARGO Ocean Data</h2>
+                <img src="https://argo.ucsd.edu/wp-content/uploads/sites/361/2020/06/float_cycle_1.png" alt="Diagram showing the cycle of an ARGO ocean float" class="mx-auto my-8 rounded-xl shadow-lg w-full md:w-3/4 lg:w-1/2">
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">A Smart India Hackathon 2025 problem statement by INCOIS to democratize access to vast oceanographic datasets through the power of conversational AI.</p>
+                <a href="#challenge" class="mt-8 inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">Explore the Challenge</a>
+                <h3 class="text-2xl font-semibold mt-8 mb-4">Learn How ARGO Floats Work</h3>
+                <div class="relative overflow-hidden w-full mx-auto md:w-3/4 lg:w-1/2 rounded-xl shadow-lg" style="padding-top: 56.25%">
+                    <iframe 
+                        class="absolute top-0 left-0 w-full h-full"
+                        src="https://www.youtube.com/embed/YkctZlQgU0g" 
+                        title="How Argo Floats Work" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
+        </section>
+        
+        <section id="challenge" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">The Challenge: Unlocking Complex Ocean Data</h2>
+                    <p class="mt-2 text-gray-600 max-w-2xl mx-auto">This section outlines the core problem FloatChat aims to solve. Oceanographic data, particularly from the ARGO program, is incredibly valuable but locked away in complex formats, making it inaccessible to non-technical users who could benefit from its insights.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                        <h3 class="text-2xl font-semibold mb-4">The Data Hurdle</h3>
+                        <p class="text-gray-600 leading-relaxed">Oceanographic data is vast, complex, and heterogeneous. The ARGO program alone generates extensive datasets in NetCDF format, containing crucial variables like temperature and salinity. Accessing, querying, and visualizing this data currently requires significant domain knowledge, technical skill, and familiarity with specialized tools, creating a major bottleneck for researchers, policymakers, and students.</p>
+                    </div>
+                     <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                        <h3 class="text-2xl font-semibold mb-4">The Goal: Democratization</h3>
+                        <p class="text-gray-600 leading-relaxed">The objective is to build an AI-powered conversational system that allows any user to explore and visualize ARGO float data using simple, natural language. This tool will bridge the gap between raw data and actionable insights, empowering a wider audience to ask questions like, "Show me salinity profiles near the equator," without needing to write a single line of code.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="py-16 md:py-24 bg-blue-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">The Proposed Solution: An End-to-End Pipeline</h2>
+                    <p class="mt-2 text-gray-600 max-w-2xl mx-auto">The solution involves creating a complete system that processes raw data and serves it through an intelligent, user-friendly interface. Below is a visual representation of the required architecture, showing how data flows from source to screen.</p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="p-6 bg-white rounded-lg shadow-lg text-center w-full md:w-1/5 border-t-4 border-blue-500">
+                        <div class="text-4xl mb-2">📥</div>
+                        <h4 class="font-semibold text-lg">1. Ingest & Process</h4>
+                        <p class="text-sm text-gray-500">ARGO NetCDF files are converted into structured formats like SQL/Parquet.</p>
+                    </div>
+                     <div class="text-2xl text-blue-400 hidden md:block">➔</div>
+                    <div class="p-6 bg-white rounded-lg shadow-lg text-center w-full md:w-1/5 border-t-4 border-blue-500">
+                        <div class="text-4xl mb-2">💾</div>
+                        <h4 class="font-semibold text-lg">2. Store & Index</h4>
+                        <p class="text-sm text-gray-500">Data stored in PostgreSQL; metadata indexed in a Vector DB (FAISS/Chroma).</p>
+                    </div>
+                     <div class="text-2xl text-blue-400 hidden md:block">➔</div>
+                    <div class="p-6 bg-white rounded-lg shadow-lg text-center w-full md:w-1/5 border-t-4 border-blue-500">
+                        <div class="text-4xl mb-2">🧠</div>
+                        <h4 class="font-semibold text-lg">3. Query with AI</h4>
+                        <p class="text-sm text-gray-500">RAG and LLMs translate natural language into database queries.</p>
+                    </div>
+                     <div class="text-2xl text-blue-400 hidden md:block">➔</div>
+                    <div class="p-6 bg-white rounded-lg shadow-lg text-center w-full md:w-1/5 border-t-4 border-blue-500">
+                        <div class="text-4xl mb-2">📈</div>
+                        <h4 class="font-semibold text-lg">4. Visualize</h4>
+                        <p class="text-sm text-gray-500">Interactive dashboards display results via charts, maps, and tables.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="features" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Core Features & Technologies</h2>
+                    <p class="mt-2 text-gray-600 max-w-2xl mx-auto">A successful Proof-of-Concept must include these core features and utilize the specified technology stack to meet the project's goals. These elements form the foundation of the FloatChat application.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border">
+                        <h4 class="font-semibold text-xl mb-2">Natural Language Chat</h4>
+                        <p class="text-gray-600">A chatbot-style interface that understands user intent and guides data discovery.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border">
+                        <h4 class="font-semibold text-xl mb-2">Interactive Dashboard</h4>
+                        <p class="text-gray-600">Dynamic visualizations (profiles, trajectories) that update based on chat queries.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border">
+                        <h4 class="font-semibold text-xl mb-2">Geospatial Mapping</h4>
+                        <p class="text-gray-600">Map-based visualizations of ARGO float locations and paths using Plotly, Leaflet, or Cesium.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border">
+                        <h4 class="font-semibold text-xl mb-2">RAG Pipeline</h4>
+                        <p class="text-gray-600">LLMs (e.g., GPT, LLaMA) augmented with a vector database to ensure accurate, grounded responses.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border">
+                        <h4 class="font-semibold text-xl mb-2">Structured Storage</h4>
+                        <p class="text-gray-600">Use of PostgreSQL for relational data and FAISS/Chroma for vectorized metadata retrieval.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border">
+                        <h4 class="font-semibold text-xl mb-2">Data Export</h4>
+                        <p class="text-gray-600">Ability to export query results and summaries to ASCII and NetCDF formats.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="py-16 md:py-24 bg-gray-50">
+             <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Dashboard Preview: Visualizing Ocean Data</h2>
+                    <p class="mt-2 text-gray-600 max-w-2xl mx-auto">The core of the user experience is an interactive dashboard. Below are sample visualizations of the kind FloatChat should produce. Users could generate these charts by asking, "Show me the temperature and salinity profiles for float X."</p>
+                    <p class="mt-2 text-gray-700 font-semibold">Data from Float <span id="wmo-id">...</span></p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 grid md:grid-cols-2 gap-8">
+                    <div class="chart-container">
+                        <canvas id="tempChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="salinityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <section id="success" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Success Factors & Resources</h2>
+                     <p class="mt-2 text-gray-600 max-w-2xl mx-auto">Success will be measured by functionality, accuracy, and user experience. Use the official data repositories to build your proof-of-concept.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                     <div>
+                        <h3 class="text-xl font-semibold mb-4">Key Success Metrics</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li><b>Functionality:</b> A seamless, working end-to-end pipeline.</li>
+                            <li><b>Accuracy:</b> Correct translation of natural language to database queries.</li>
+                            <li><b>User-Friendliness:</b> An intuitive interface for non-technical users.</li>
+                            <li><b>Performance:</b> Quick response times for queries and visualizations.</li>
+                            <li><b>Extensibility:</b> Modular architecture for future datasets.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Official Data Repositories</h3>
+                        <div class="space-y-4">
+                            <a href="ftp://ftp.ifremer.fr/ifremer/argo" target="_blank" class="block bg-blue-50 p-4 rounded-lg hover:bg-blue-100 transition-colors">
+                                <p class="font-semibold text-blue-800">Argo Global Data Repository</p>
+                                <p class="text-sm text-blue-600">ftp.ifremer.fr/ifremer/argo</p>
+                            </a>
+                             <a href="https://incois.gov.in/OON/index.jsp" target="_blank" class="block bg-blue-50 p-4 rounded-lg hover:bg-blue-100 transition-colors">
+                                <p class="font-semibold text-blue-800">Indian Argo Project (INCOIS)</p>
+                                <p class="text-sm text-blue-600">incois.gov.in/OON/index.jsp</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <section id="credits" class="bg-gray-200 py-8">
+        <div class="container mx-auto px-6">
+            <h4 class="text-base text-center mb-4">Image and Video Credits</h4>
+            <ul class="list-disc list-inside text-gray-600 text-sm space-y-2 max-w-3xl mx-auto">
+                <li><b>Image:</b> Diagram showing the cycle of an ARGO ocean float. <a href="https://argo.ucsd.edu/how-argo-works/" target="_blank" class="text-blue-600 hover:underline">Source: Argo Program / Scripps Institution of Oceanography</a></li>
+                <li><b>Video:</b> "How Argo Floats Work" from YouTube. <a href="https://www.youtube.com/watch?v=YkctZlQgU0g" target="_blank" class="text-blue-600 hover:underline">Source: Scripps Oceanography</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>Smart India Hackathon 2025 | Problem Statement by INCOIS, Ministry of Earth Sciences</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            const createChart = (id, label, data, borderColor, xTitle, yTitle) => {
+                const ctx = document.getElementById(id).getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        datasets: [{
+                            label: label,
+                            data: data,
+                            borderColor: borderColor,
+                            borderWidth: 2,
+                            pointBackgroundColor: borderColor,
+                            pointRadius: 4,
+                            tension: 0.1,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: yTitle
+                                },
+                                reverse: true,
+                                type: 'linear',
+                                beginAtZero: false,
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: xTitle
+                                },
+                                type: 'linear',
+                                position: 'top',
+                                beginAtZero: false,
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                            },
+                            tooltip: {
+                                enabled: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.x !== null && context.parsed.y !== null) {
+                                            label += context.parsed.x.toFixed(2) + ' at ' + context.parsed.y + 'm';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: label,
+                                font: {
+                                    size: 18
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            // Function to fetch and process the CSV data
+            async function fetchCSVData(filePath) {
+                try {
+                    const response = await fetch(filePath);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const csvText = await response.text();
+                    const rows = csvText.trim().split('\n');
+                    const headers = rows[0].split(',').map(h => h.trim());
+                    
+                    const data = rows.slice(1).map(row => {
+                        const values = row.split(',').map(v => parseFloat(v));
+                        return {
+                            depth: values[headers.indexOf('DEPTH(m)')],
+                            temperature: values[headers.indexOf('TEMPERATURE(degC)')],
+                            salinity: values[headers.indexOf('SALINITY(psu)')],
+                            wmoid: values[headers.indexOf('WMOID')]
+                        };
+                    });
+                    return data;
+
+                } catch (error) {
+                    console.error("Could not fetch or parse data from CSV:", error);
+                    return null;
+                }
+            }
+
+            // Define fallback data to ensure a plot is always displayed
+            const defaultDepthData = [0, 50, 100, 200, 400, 600, 800, 1000, 1500, 2000];
+            const defaultTempData = [28.5, 28.2, 27.9, 25.1, 20.3, 15.6, 11.2, 8.4, 5.1, 3.2];
+            const defaultSalinityData = [35.1, 35.2, 35.3, 35.4, 35.5, 35.6, 35.7, 35.8, 35.9, 36.0];
+
+            let data = await fetchCSVData('Book1.xlsx - Sheet1.csv');
+
+            // If CSV data fails to load, use the default data
+            if (!data) {
+                data = defaultDepthData.map((depth, index) => ({
+                    depth: depth,
+                    temperature: defaultTempData[index],
+                    salinity: defaultSalinityData[index],
+                    wmoid: 'Default Profile'
+                }));
+                console.log("Using default data for plots.");
+            }
+
+            if (data) {
+                const wmoId = data.length > 0 ? data[0].wmoid : 'N/A';
+                document.getElementById('wmo-id').textContent = wmoId;
+
+                const tempData = data.map(item => ({ x: item.temperature, y: item.depth }));
+                const salinityData = data.map(item => ({ x: item.salinity, y: item.depth }));
+
+                createChart('tempChart', 'Temperature Profile', tempData, 'rgba(59, 130, 246, 1)', 'Temperature (°C)', 'Depth (m)');
+                createChart('salinityChart', 'Salinity Profile', salinityData, 'rgba(239, 68, 68, 1)', 'Salinity (PSU)', 'Depth (m)');
+            }
+        });
+    </script>
+</body>
+</html>
