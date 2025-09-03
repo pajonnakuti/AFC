@@ -376,6 +376,205 @@
             }
         });
     </script>
+
+        <!-- FAQs Section - Integrated from previous file -->
+    <section id="faqs" class="py-20">
+        <div class="container mx-auto px-6">
+            <header class="text-center mb-10">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-indigo-700 leading-tight">FAQs</h2>
+                <p class="mt-4 text-lg text-gray-600">
+                    This section provides a detailed breakdown of the "FloatChat" problem statement, clarifying key concepts, expectations, and success metrics.
+                </p>
+            </header>
+
+            <div class="space-y-8 mb-12">
+                <!-- Data Formats and Download Instructions -->
+                <div class="p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">1. Argo Data Format in NetCDF</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        The Argo program provides global, freely available datasets of vertical ocean profiles collected by autonomous profiling floats. Data are distributed in NetCDF format in compliance with Climate and Forecast (CF) conventions and additional Argo-specific standards.
+                    </p>
+
+                    <h4 class="text-lg md:text-xl font-semibold mt-6 mb-2">Types of Argo NetCDF Files</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>Profile files (R*.nc / D*.nc):</strong> R = Real-time data (available within hours, subject to basic QC); D = Delayed-mode data (scientifically validated and adjusted). Contain vertical profiles of temperature (TEMP), salinity (PSAL), pressure (PRES), and related metadata.</li>
+                        <li><strong>Trajectory files (Rtraj.nc / Dtraj.nc):</strong> Record float trajectories: latitude, longitude, surface drift, parking depth, cycle timing.</li>
+                        <li><strong>Technical files (tech.nc):</strong> Contain float engineering and technical parameters such as battery voltage, pump activity, internal pressure, etc.</li>
+                        <li><strong>Metadata files (meta.nc):</strong> Provide float configuration, sensor specifications, calibration coefficients, and other metadata.</li>
+                    </ul>
+
+                    <h4 class="text-lg md:text-xl font-semibold mt-6 mb-2">Structure of Profile Files</h4>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Each profile NetCDF file contains:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>Dimensions:</strong> N_PROF $\rightarrow$ number of profiles (usually 1); N_LEVELS $\rightarrow$ depth levels per profile (e.g., 2000).</li>
+                        <li><strong>Core Variables:</strong> PRES $\rightarrow$ Pressure (dbar); TEMP $\rightarrow$ Temperature ($^{\circ}C$); PSAL $\rightarrow$ Salinity (PSS-78); LATITUDE, LONGITUDE, JULD (Julian day since 1950-01-01).</li>
+                        <li><strong>Quality Control (QC) Flags:</strong> PRES_QC, TEMP_QC, PSAL_QC (flags per measurement); PROFILE_QC (overall profile quality). QC values: 1 = good, 2 = probably good, 3 = probably bad, 4 = bad, 9 = missing.</li>
+                        <li><strong>Metadata Variables:</strong> DATA_MODE $\rightarrow$ R (real-time), A (adjusted), D (delayed-mode); PARAMETER $\rightarrow$ Lists which variables exist in the file.</li>
+                    </ul>
+                </div>
+
+                <div class="p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">2. How to Download Argo Data from FTP</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Argo data are distributed through two Global Data Assembly Centers (GDACs), both synchronized:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>Coriolis (France):</strong> <a href="ftp://ftp.ifremer.fr/ifremer/argo/" class="text-indigo-600 hover:underline">ftp://ftp.ifremer.fr/ifremer/argo/</a></li>
+                        <li><strong>US GODAE (USA):</strong> <a href="ftp://usgodae.org/pub/outgoing/argo/" class="text-indigo-600 hover:underline">ftp://usgodae.org/pub/outgoing/argo/</a></li>
+                    </ul>
+                    <p class="text-gray-700 leading-relaxed mt-4">
+                        You can download Argo NetCDF files directly using a browser or command-line tools like <code>wget</code> or <code>curl</code>.
+                    </p>
+                    <div class="mt-4 p-4 bg-gray-100 rounded-lg font-mono text-sm overflow-x-auto text-gray-800">
+                        wget -r -np -nH --cut-dirs=4 ftp://ftp.ifremer.fr/ifremer/argo/dac/aoml/1901204/
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main FAQs -->
+            <div class="space-y-8">
+                <!-- FAQ 1 -->
+                <div class="faq-item p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">3. In what formats is the final analyzed ARGO data most frequently required and shared with end-users and departments at INCOIS?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Based on the problem statement, the final output for tabular summaries should be available in both plain text (ASCII) and the original NetCDF format. This indicates that while the internal system will use structured databases for efficient querying, the final output must be in formats that are familiar and usable for the scientific community. The system should also produce interactive visualizations, which are a key part of the deliverable.
+                    </p>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">4. How is research and analysis typically conducted using this data, from problem identification to insight generation?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Traditionally, researchers and analysts would follow a multi-step process:
+                    </p>
+                    <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>Data Acquisition:</strong> Downloading raw NetCDF files from repositories like the Argo Global Data Repository.</li>
+                        <li><strong>Data Processing:</strong> Using specialized software (e.g., Python with xarray, MATLAB) to read and process the complex NetCDF files.</li>
+                        <li><strong>Querying &amp; Filtering:</strong> Manually writing scripts to filter data based on parameters like location, time, and specific variables.</li>
+                        <li><strong>Visualization:</strong> Generating plots (e.g., using matplotlib or Plotly) to visualize profiles, trajectories, and other data relationships.</li>
+                        <li><strong>Interpretation:</strong> Manually analyzing the visualizations and data tables to derive insights.</li>
+                    </ul>
+                    <p class="text-gray-700 leading-relaxed mt-4">
+                        The proposed solution aims to replace the manual querying and visualization steps with an intuitive, conversational interface, thereby accelerating the entire process.
+                    </p>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">5. What would be the key outcomes and expectations from a solution like ours? What factors would define its success for your department?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        The success of the FloatChat solution will be defined by its ability to deliver on the core objectives outlined in the problem statement. Key factors include:
+                    </p>
+                    <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>End-to-end functionality:</strong> A seamless, working pipeline from raw NetCDF ingestion to natural language query processing and visualization.</li>
+                        <li><strong>Accuracy:</strong> The LLM's ability to accurately translate natural language queries into correct and efficient database queries.</li>
+                        <li><strong>User-Friendliness:</strong> A clean, intuitive chat and dashboard interface that is accessible to non-technical users.</li>
+                        <li><strong>Geospatial Visualization:</strong> The effective use of interactive maps (e.g., via Plotly or Leaflet) to display float trajectories and data points.</li>
+                        <li><strong>Extensibility:</strong> A well-structured backend that can be easily extended to include new datasets (e.g., BGC, glider, buoy data) and new LLMs in the future.</li>
+                        <li><strong>Performance:</strong> The system should provide a quick response time for queries.</li>
+                    </ul>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">6. Are there any preferred technologies or a specific tech stack we should use?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        The problem statement is quite specific about the required technologies, giving teams a clear architectural blueprint:
+                    </p>
+                    <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>Data Ingestion &amp; Storage:</strong> Relational database like PostgreSQL and a vector database such as FAISS or Chroma.</li>
+                        <li><strong>LLM Pipeline:</strong> Retrieval-Augmented Generation (RAG) powered by multimodal LLMs (GPT, QWEN, LLaMA, or Mistral).</li>
+                        <li><strong>Frontend Dashboard:</strong> Interactive dashboards built with Streamlit or Dash for visualization.</li>
+                        <li><strong>Visualization Libraries:</strong> Plotly, Leaflet, or Cesium for geospatial and other data plots.</li>
+                        <li><strong>File Formats:</strong> The solution must be able to output results in ASCII and NetCDF.</li>
+                    </ul>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="faq-item p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">7. How can participants access the provided datasets from INCOIS?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        The problem statement provides two primary links for data access:
+                    </p>
+                    <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>Argo Global Data Repository:</strong> <a href="ftp.ifremer.fr/ifremer/argo" class="text-indigo-600 hover:underline">ftp.ifremer.fr/ifremer/argo</a></li>
+                        <li><strong>Indian Argo Project:</strong> <a href="https://incois.gov.in/OON/index.jsp" class="text-indigo-600 hover:underline">https://incois.gov.in/OON/index.jsp</a></li>
+                    </ul>
+                    <p class="text-gray-700 leading-relaxed mt-4">
+                        Teams are expected to use the publicly available data from these repositories for their Proof-of-Concept. It is crucial to have a system that can efficiently handle the large and complex NetCDF files from these sources.
+                    </p>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="faq-item p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">8. What constitutes a "working Proof-of-Concept" and what features should be prioritized?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        A working PoC should demonstrate the end-to-end pipeline, from data processing to a natural language response. The core features to prioritize are:
+                    </p>
+                    <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>Data Ingestion:</strong> Successfully ingesting a sample of Indian Ocean ARGO data.</li>
+                        <li><strong>Natural Language Query:</strong> A chat interface where users can ask questions using the example queries provided (Show me salinity profiles..., Compare BGC parameters..., etc.).</li>
+                        <li><strong>Accurate Query Translation:</strong> The backend successfully translating these natural language questions into database queries.</li>
+                        <li><strong>Interactive Dashboard:</strong> A dashboard that dynamically updates visualizations based on the user's chat queries.</li>
+                        <li><strong>Geospatial Visualization:</strong> A map displaying the ARGO floats and their trajectories.</li>
+                    </ul>
+                </div>
+
+                <!-- FAQ 7 -->
+                <div class="faq-item p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">9. What does "future extensibility" to other datasets entail?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Extensibility means the system's architecture should be modular and scalable. This implies:
+                    </p>
+                    <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>Generalizable Data Ingestion:</strong> The data processing pipeline should be designed to handle similar data formats (e.g., from gliders, buoys) with minimal code changes.</li>
+                        <li><strong>Flexible Schema:</strong> The database schema should be designed to accommodate new parameters and variables from different types of sensors (e.g., BGC sensors).</li>
+                        <li><strong>Modular LLM Integration:</strong> The RAG pipeline should be built in a way that allows for swapping out or adding new LLMs easily, providing flexibility for future model advancements.</li>
+                    </ul>
+                </div>
+
+                <!-- FAQ 8 -->
+                <div class="faq-item p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">10. What is the Model Context Protocol (MCP) and how should it be used in the RAG pipeline?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        The Model Context Protocol (MCP) is an open standard that enables LLMs to securely and reliably connect with external tools, data sources, and services. In the context of this problem, MCP would serve as the standardized interface for the LLM to access the structured oceanographic data stored in your PostgreSQL and vector databases. It helps reduce hallucinations by providing the LLM with direct access to a "ground truth" of your data, making the generated responses more accurate and grounded.
+                    </p>
+                </div>
+
+                <!-- FAQ 9 -->
+                <div class="faq-item p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">11. Who are the primary end-users of this system?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        The primary target users are identified as "non-technical users," including:
+                    </p>
+                    <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>Domain experts:</strong> Scientists and researchers who need to quickly query and visualize data without writing code.</li>
+                        <li><strong>Decision-makers:</strong> Government officials and policy-makers who need to extract meaningful insights from ocean data for strategic planning.</li>
+                        <li><strong>Students &amp; Educators:</strong> Individuals in academia who can use the tool for learning and research purposes.</li>
+                    </ul>
+                    <p class="text-gray-700 leading-relaxed mt-4">
+                        The system should be designed with this user base in mind, focusing on simplicity and ease of use.
+                    </p>
+                </div>
+
+                <!-- FAQ 10 -->
+                <div class="faq-item p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-bold mb-3">12. How will the chat interface understand user intent?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        The chat interface will leverage the RAG pipeline. When a user enters a query, the RAG system will:
+                    </p>
+                    <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700 leading-relaxed">
+                        <li><strong>Retrieval:</strong> Use the vector database (Chroma/FAISS) to retrieve relevant metadata and summaries based on the user's natural language query.</li>
+                        <li><strong>Augmentation:</strong> Pass the retrieved context and the user query to the LLM.</li>
+                        <li><strong>Generation:</strong> The LLM will then generate the appropriate database query (SQL) and a conversational response, which is then used to fetch the required data and render the visualization on the dashboard. This approach ensures the response is both accurate and conversational.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
+
 
